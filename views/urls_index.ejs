@@ -4,6 +4,11 @@
   <title>TinyApp</title>
 </head>
 <body>
-    <!-- Add your EJS code here -->
+  <ul>
+  <% urls.forEach(function(url) { %>
+    <li><%= url %></li>
+  <% }); %>
+  <a href="#">Shorten a New URL</a>
+</ul>
 </body>
 </html>

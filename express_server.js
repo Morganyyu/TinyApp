@@ -13,8 +13,14 @@ app.get("/", (req, res) => {
   res.end("Hello!");
 });
 
+app.get("/urls/:id", (req, res) => {
+  let templateVars = { shortURL: req.params.id };
+  res.render("urls_show", templateVars);
+});
+
 app.get("/urls", (req, res) => {
-  let templateVars = { urls: urlDatabase };
+  let arr = Object.entries(urlDatabase);
+  let templateVars = { urls: arr };
   res.render("urls_index", templateVars);
 });
 
