@@ -8,16 +8,15 @@ app.set("view engine", "ejs")
 
 let urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
-  "9sm5xK": "http://www.google.com"
+  "9sm5xK": "http://www.google.com",
+
 };
 
 function generateRandomString() {
-  var output = "";
-  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
+  let output = "";
+  let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   for (var i = 0; i < 6; i++)
-    output += possible.charAt(Math.floor(Math.random() * possible.length));
-
+  output += possible.charAt(Math.floor(Math.random() * possible.length));
   return output;
 };
 
@@ -31,8 +30,16 @@ app.get("/urls/new", (req, res) => {
 });
 
 app.post("/urls", (req, res) => {
-  console.log(req.body);  // debug statement to see POST parameters
+  console.log(req.body.longURL);
+  const shortURL = generateRandomString();
+  var longURL = req.body.longURL;
+  urlDatabase[shortURL] = longURL;
   res.send("Ok");         // Respond with 'Ok' (we will replace this)
+});
+
+app.get("/u/:shortURL", (req, res) => {
+  let longURL = urlDatabase[req.params.shortURL];
+  res.redirect(longURL);
 });
 
 app.get("/urls/:id", (req, res) => {
