@@ -1,7 +1,7 @@
-const express = require("express");
-const app = express();
-const PORT = process.env.PORT || 8080; // default port 8080
-const bodyParser = require("body-parser");
+var express = require("express");
+var app = express();
+var PORT = process.env.PORT || 8080; // default port 8080
+var bodyParser = require("body-parser");
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs")
@@ -9,7 +9,6 @@ app.set("view engine", "ejs")
 let urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
   "9sm5xK": "http://www.google.com",
-
 };
 
 function generateRandomString() {
@@ -29,9 +28,15 @@ app.get("/urls/new", (req, res) => {
   res.render("urls_new");
 });
 
+app.get("/urls", (req, res) => {
+  let arr = Object.entries(urlDatabase);
+  let templateVars = { urls: arr };
+  res.render("urls_index", templateVars);
+});
+
 app.post("/urls", (req, res) => {
-  console.log(req.body.longURL);
-  const shortURL = generateRandomString();
+  // console.log(req.body.longURL);
+  let shortURL = generateRandomString();
   var longURL = req.body.longURL;
   urlDatabase[shortURL] = longURL;
   res.send("Ok");         // Respond with 'Ok' (we will replace this)
@@ -48,10 +53,10 @@ app.get("/urls/:id", (req, res) => {
   res.render("urls_show", templateVars);
 });
 
-app.get("/urls", (req, res) => {
-  let arr = Object.entries(urlDatabase);
-  let templateVars = { urls: arr };
-  res.render("urls_index", templateVars);
+
+app.post("/urls/:id/delete", (req, res) => {
+  delete urlDatabase[req.params.id];
+  res.redirect("/urls");
 });
 
 app.get("/urls.json", (req, res) => {

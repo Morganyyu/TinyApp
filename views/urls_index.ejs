@@ -5,11 +5,12 @@
 </head>
 <body>
   <header>
-      <% include ../partials/_header %>
+      <% include ./partials/_header.ejs %>
   </header>
   <ul>
   <% urls.forEach(function(url) { %>
     <li><%= url %></li>
+    <form method="POST" action="/urls/<%= url[0] %>/delete"><button type="submit">Delete</button></form>
   <% }); %>
   <a href="#">Shorten a New URL</a>
 </ul>
