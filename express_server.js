@@ -19,7 +19,7 @@ function generateRandomString() {
   return output;
 };
 
-
+//Homepage
 app.get("/", (req, res) => {
   res.end("Hello!");
 });
@@ -53,7 +53,13 @@ app.get("/urls/:id", (req, res) => {
   res.render("urls_show", templateVars);
 });
 
+//Update and redirect
+app.post("/urls/:id", (req, res) => {
+  urlDatabase[req.params.id]  = req.body.longURL;
+  res.redirect("/urls");
+});
 
+//Delete link
 app.post("/urls/:id/delete", (req, res) => {
   delete urlDatabase[req.params.id];
   res.redirect("/urls");
