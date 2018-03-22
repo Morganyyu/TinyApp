@@ -1,3 +1,20 @@
+<title>Login</title>
 
-<title>header</title>
+<% if(username) { %>
+
+    <label for="username">Username: </label>
+    <%= username %>
+    <form action="/logout" method="POST">
+      <button type="submit">Logout</button>
+    </form>
+
+<% } else { %>
+
+<form action="/login" method="POST">
+  <label for="username">Username: </label>
+  <input id="username" type="text" name="username" style=width: 600px>
+  <button type="submit">Submit</button>
+</form>
+
+<% } %>
 
