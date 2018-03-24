@@ -9,13 +9,15 @@
     <% include ./partials/_header.ejs %>
   </header>
   <ul>
-  <% urls.forEach(function(url) { %>
-    <li><%= url %></li>
-    <form method="POST" action="/urls/<%= url[0] %>/delete">
-      <a href="/urls/<%=url[0]%>">Edit</a>
+  <% for (var url in urlDatabase) { %>
+  <% if (user_id === urlDatabase[url].user_id) { %>
+    <li><%= "Short URL: " + url + "   " + "Long URL: " + urlDatabase[url].longURL %></li>
+    <form method="POST" action="/urls/<%= url %>/delete">
+      <a href="/urls/<%=url%>">Edit</a>
       <button type="submit">Delete</button>
     </form>
-  <% }); %>
+    <% } %>
+  <% }; %>
   <a href="urls/new">Shorten a New URL</a>
 </ul>
 </body>
