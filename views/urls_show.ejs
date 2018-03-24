@@ -3,15 +3,17 @@
 <head>
   <title>TinyApp</title>
 </head>
-<body>
+<body style="background-color: pink">
   <header>
     <% include ./partials/_header %>
   </header>
-     <form action="/urls/<%=shortURL%>" method="POST">
-      <label for="longURL">Short URL: <%= shortURL %></label>
-      </br>
-      <input id="longURL" type="text" name="longURL" value="<%= longURL %>"  style=width: 600px>
-      <input type="submit" value="Update">
+    <form action="/urls/<%=shortURL%>" method="POST">
+      <div align="center" style="font-size: 20px">
+        <label for="longURL">Short URL: <%= shortURL %></label>
+        <br>
+        <input id="longURL" type="text" name="longURL" value="<%= longURL %>"  style="width:150px">
+        <input type="submit" value="Update">
+      </div>
     </form>
 </body>
 </html>

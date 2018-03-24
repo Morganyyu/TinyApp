@@ -2,19 +2,18 @@
 <html lang="en">
 <head>
   <title>TinyApp</title>
-
 </head>
-<body>
+<body style="background-color: rgb(171, 235, 198)" align="center">
     <% include ./partials/_header.ejs %>
+    <h3 align="center">Register... FOR FREE</h3>
     <form method="POST" action="/register">
       <label for="email">Email</label>
       <input id="email" type="email" name="email" placeholder="example@example.com" style="width: 300px">
-    </br>
+      <br>
       <label for="password">Password</label>
       <input id="password" type="password" name="password" style="width: 300px">
+      <br>
       <button type="submit">Register</button>
     </form>
-
-
 </body>
 </html>

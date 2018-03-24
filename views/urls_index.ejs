@@ -2,23 +2,23 @@
 <html lang="en">
 <head>
   <title>TinyApp</title>
-
 </head>
-<body style="background-color: rgb(255, 65, 128)">
+<body style="background-color: rgb(204, 255, 255)" align="center">
   <header>
     <% include ./partials/_header.ejs %>
   </header>
+  <h1 style="color:rgb(38, 166, 154)">TinyApp</h1>
   <ul>
-  <% for (var url in urlDatabase) { %>
-  <% if (user_id === urlDatabase[url].user_id) { %>
-    <li><%= "Short URL: " + url + "   " + "Long URL: " + urlDatabase[url].longURL %></li>
-    <form method="POST" action="/urls/<%= url %>/delete">
-      <a href="/urls/<%=url%>">Edit</a>
-      <button type="submit">Delete</button>
-    </form>
-    <% } %>
-  <% }; %>
-  <a href="urls/new">Shorten a New URL</a>
-</ul>
+    <% for (var url in urlDatabase) { %>
+    <% if (user_id === urlDatabase[url].user_id) { %>
+      <li><%= "Short URL: " + url + "   ||   " + " Long URL: " + urlDatabase[url].longURL %></li>
+      <form method="POST" action="/urls/<%= url %>/delete">
+        <a href="/urls/<%=url%>">Edit</a>
+        <button type="submit">Delete</button>
+      </form>
+      <% } %>
+    <% }; %>
+  </ul>
+  <p><a href="urls/new">Shorten a New URL</a></p>
 </body>
 </html>
