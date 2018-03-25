@@ -61,7 +61,7 @@ app.get("/", (req, res) => {
   res.end("Hello!");
 });
 
-//urls main page
+//URLs main page
 app.get("/urls", (req, res) => {
   let user_id = req.session.user_id;
   let templateVars = {
@@ -83,11 +83,13 @@ app.get("/urls/new", (req, res) => {
   }
 });
 
+//Redirect from shortURL to actual page
 app.get("/u/:shortURL", (req, res) => {
   let fullURL = urlDatabase[req.params.shortURL].longURL;
   res.redirect(fullURL);
 });
 
+//Redirect to your edit URL page if logged in
 app.get("/urls/:id", (req, res) => {
   let user_id = req.session.user_id;
   let shortURL = req.params.id;
@@ -101,17 +103,18 @@ app.get("/urls/:id", (req, res) => {
   res.render("urls_show", templateVars);
 });
 
-//Login link
+//Login page
 app.get("/login", (req, res) => {
   let user_id = req.session.user_id;
   res.render("login", {user: users[user_id]});
 });
 
-//Register link
+//Register page
 app.get("/register", (req, res) => {
   res.render("register", {user: users[req.session.user_id]});
 });
 
+//Add urls and user data to urlDatabase
 app.post("/urls", (req, res) => {
   const shortURL = generateRandomString();
   const longURL = req.body.longURL;
@@ -129,8 +132,6 @@ app.post("/urls", (req, res) => {
   }
 });
 
-
-
 //Update and redirect
 app.post("/urls/:id", (req, res) => {
   let shortURL = req.params.id;
@@ -144,7 +145,7 @@ app.post("/urls/:id", (req, res) => {
   }
 });
 
-//Delete link
+//Delete cookie session
 app.post("/urls/:id/delete", (req, res) => {
   let shortURL = req.params.id;
   if (urlDatabase[shortURL].user_id === req.session["user_id"]) {
@@ -156,8 +157,7 @@ app.post("/urls/:id/delete", (req, res) => {
   }
 });
 
-
-
+//Login then redirect to urls page
 app.post("/login", (req, res) => {
   let {email, password} = req.body;
   if (!email || !password) {
@@ -173,14 +173,13 @@ app.post("/login", (req, res) => {
   }
 });
 
-//Logout link
+//Logout and clear cookie sessions
 app.post("/logout", (req, res) => {
   req.session = null;
   res.redirect("urls");
 });
 
-
-
+//Register then redirect to urls page
 app.post("/register", (req, res) => {
   let user_id = generateRandomString();
   let { email, password } = req.body;
@@ -200,7 +199,7 @@ app.post("/register", (req, res) => {
   }
 });
 
-//json stuff
+//JSON stuff
 app.get("/urls.json", (req, res) => {
   res.json(urlDatabase);
 });
@@ -208,7 +207,7 @@ app.get("/users.json", (req, res) => {
   res.json(users);
 });
 
-
+//Server
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
 });
